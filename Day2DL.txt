@@ -1,0 +1,22 @@
+for i in range(num_iters):
+    print(f"Epoch/Iteration {i}")
+    
+    ## Calculate prediction based on the weights
+    ## Sigmoid(w.T*X+b)
+    A = sc.special.expit(np.dot(w.T,X_train_n)+b) ## Forward Propagation
+    
+    # Compute cost
+    cost = np.sum(((- np.log(A))*y_train_n + (-np.log(1-A))*(1-y_train_n)))/m
+    
+ 
+    ## Backward Propagation
+    ## Calculate Gradients
+    dw = (np.dot(X_train_n,(A-y_train_n).T))/m ## dJ/dw
+    db = (np.sum(A-y_train_n))/m ## dJ/db
+    
+    ## Gradient Descent - Update weights
+    w = w - alpha*dw # w = w - learning rate*dJ/dw
+    b = b - alpha*db # b = b - learning rate * dJ/db
+    
+    # Append cost for plotting
+    costs.append(cost)
